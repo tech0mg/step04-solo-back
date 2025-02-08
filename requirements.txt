@@ -7,4 +7,5 @@ pymysql==1.1.0
 starlette>=0.40.0,<0.42.0
 pydantic==2.6.4
 itsdangerous==2.2.0
-python-dotenv
+cryptography==42.0.0
+mysql-connector-python==9.2.0
