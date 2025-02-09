@@ -11,12 +11,11 @@ load_dotenv()
 # FastAPI インスタンス作成
 app = FastAPI()
 
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        os.environ.get('API_URL_01', '*'),
-        os.environ.get('API_URL_02', '*')
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
