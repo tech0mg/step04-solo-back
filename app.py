@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, Request
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from db_control import models, schemas, crud, database
@@ -20,14 +20,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    logger.info(f"📥 リクエスト受信: {request.method} {request.url}")
-    response = await call_next(request)
-    logger.info(f"📤 レスポンス送信: {response.status_code}")
-    return response
 
 # DB初期化
 models.Base.metadata.create_all(bind=database.engine)
