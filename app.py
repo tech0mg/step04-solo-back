@@ -13,6 +13,14 @@ app = FastAPI()
 
 allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://tech0-gen8-step4-pos-app-15.azurewebsites.net"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # DB初期化
 models.Base.metadata.create_all(bind=database.engine)
 
