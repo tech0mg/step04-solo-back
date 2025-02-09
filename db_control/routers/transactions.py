@@ -5,7 +5,7 @@ from db_control import models, schemas
 
 router = APIRouter(prefix="/api/transaction", tags=["transaction"])
 
-@router.post("/")
+@router.post("")
 async def save_transaction(transaction: schemas.TransactionRequest, db: Session = Depends(get_db)):
     new_transaction = models.Transaction(
         emp_cd=transaction.emp_cd,
