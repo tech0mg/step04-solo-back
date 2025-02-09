@@ -21,6 +21,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    logger.info(f"📥 リクエスト受信: {request.method} {request.url}")
+    response = await call_next(request)
+    logger.info(f"📤 レスポンス送信: {response.status_code}")
+    return response
+
 # DB初期化
 models.Base.metadata.create_all(bind=database.engine)
 
