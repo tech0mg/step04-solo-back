@@ -6,7 +6,7 @@ from db_control.models import ProductMaster
 router = APIRouter(prefix="/api/product", tags=["products"])
 
 @router.get("/")
-def get_product(code: str, db: Session = Depends(get_db)):
+async def get_product(code: str, db: Session = Depends(get_db)):
     product = db.query(ProductMaster).filter(ProductMaster.code == code).first()
     if product is None:
         return {"error": "商品が見つかりません"}
