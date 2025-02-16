@@ -2,6 +2,7 @@ from fastapi import APIRouter, Request, Depends
 from sqlalchemy.orm import Session
 from db_control.database import get_db
 from db_control import models, schemas
+from typing import List
 
 router = APIRouter(prefix="/api/transaction", tags=["transaction"])
 
@@ -19,10 +20,7 @@ async def save_transaction(transaction: schemas.TransactionRequest, db: Session 
     return {"trd_id": new_transaction.trd_id}
 
 @router.post("/details")
-async def save_transaction_details(request: Request, db: Session = Depends(get_db)):
-    data = await request.json()
-    details = data["details"]
-
+async def save_transaction_details(details: List[schemas.TransactionDetailRequest], db: Session = Depends(get_db)):
     try:
         for detail in details:
             new_detail = models.TransactionDetail(
@@ -36,7 +34,6 @@ async def save_transaction_details(request: Request, db: Session = Depends(get_d
 
         db.commit()
         db.refresh(new_detail)
-
         return {"message": "Transaction details saved successfully!"}
     except Exception as e:
         db.rollback()

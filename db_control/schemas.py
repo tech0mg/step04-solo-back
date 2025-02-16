@@ -27,3 +27,16 @@ class TransactionRequest(BaseModel):
     emp_cd: int
     store_cd: int
     pos_no: int
+
+class TransactionDetailRequest(BaseModel):
+    trd_id: int
+    prd_id: int
+    prd_code: str
+    prd_name: str
+    prd_price: float
+
+class Tax(BaseModel):
+    tax_ID: int
+    tax_code: str
+    tax_name: str
+    tax_percent: float

@@ -5,17 +5,16 @@ from db_control import models, schemas, crud, database
 from db_control.routers import users, products, transactions
 import os
 from dotenv import load_dotenv
-
 load_dotenv()
 
 # FastAPI インスタンス作成
 app = FastAPI()
 
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+allowed_origins = os.getenv("ALLOWED_ORIGINS")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://tech0-gen8-step4-pos-app-15.azurewebsites.net"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

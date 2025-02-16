@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
 import os
 from dotenv import load_dotenv
+from db_control import models
 
 load_dotenv()
 
@@ -26,9 +27,7 @@ if not database_exists(engine.url):
 
 Base = declarative_base()
 Base.metadata.create_all(bind=engine)
-
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
 
 def get_db():
     db = SessionLocal()

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, CHAR
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, CHAR, DECIMAL
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
@@ -50,3 +50,10 @@ class TransactionDetail(Base):
 
     transaction = relationship("Transaction", back_populates="details")
     product = relationship("ProductMaster")
+
+class Tax(Base):
+    __tablename__ = 'tax_master'
+    tax_id = Column(Integer, primary_key=True, autoincrement=True)
+    tax_code = Column(CHAR(2), nullable=False, unique=True)
+    tax_name = Column(String(20), nullable=False)
+    tax_percent = Column(DECIMAL(5, 2), nullable=False)
